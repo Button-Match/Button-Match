@@ -16,7 +16,7 @@ public class GameM implements ActionListener {
 	JPanel end_screen = new JPanel();
 	JButton btn[] = new JButton[20];
     JButton easy = new JButton("color");
-    JButton hard = new JButton("Weapons");
+    JButton hard = new JButton("Shapes");
     
     Random randomGenerator = new Random();
     private boolean purgatory = false;
@@ -31,8 +31,8 @@ public class GameM implements ActionListener {
 	boolean eh=true;
 	
 	private JTextField text = new JTextField(10);
-	//Main Menu
-	public GameM(){
+	
+	public GameM(){//Main menu
 		frame.setSize(300,100);
 		frame.setLocation(100,100);
 		frame.setLayout(new BorderLayout());
@@ -57,7 +57,7 @@ public class GameM implements ActionListener {
 		frame.add(start_screen, BorderLayout.CENTER);
 		frame.setVisible(true);
 	}	
-	public void setUpGame(int x,Boolean what){//Game SEtup
+	public void setUpGame(int x,Boolean what){//Game setup
 		frame.setSize(800,800);
 		frame.setLocation(100,100);
 		x = 8;
@@ -73,10 +73,10 @@ public class GameM implements ActionListener {
 		
 		}
 		
-		String[] b = {"✈︎","̸̇̎/̸̄̿̅̎̎̅͆ ͆͆͆͆̔̿͞ ͆̅̿̄͞ ̿ ̄̇̿̚ ̎ ̎͆","▬▬ι═══════ﺤ ","⚔","⌐╦╦═─","▬ι═ﺤ","\"▄︻̷̿┻̿═━一","︻╦̵̵͇══╤─"};//shapes version
-		String[] c = {"RED","GREEN","BLUE","YELLOW","ORANGE","PINK","GREY","PURPLE"};//color version
+		String[] b = {"✈︎","̸̇̎/̸̄̿̅̎̎̅͆ ͆͆͆͆̔̿͞ ͆̅̿̄͞ ̿ ̄̇̿̚ ̎ ̎͆","▬▬ι═══════ﺤ ","⚔","⌐╦╦═─","▬ι═ﺤ","\"▄︻̷̿┻̿═━一","︻╦̵̵͇══╤─"};;//shapes version
+		String[] c = {"RED","GREEN","BLUE","YELLOW","ORANGE","PINK","GREY","MAGENTA"};//color version
 		if(what) a=c;//if what is true, make the game easy and use c
-		else a=b;//otherwise make it hard and use b+
+		else a=b;//otherwise make it hard and use b
 			
 		for(int i=0;i<x;i++){
 				for(int z=0;z<2;z++){
@@ -84,7 +84,23 @@ public class GameM implements ActionListener {
 						int y = randomGenerator.nextInt(x*2);
 						if(board[y]==null){
 							btn[y].setText(a[i]);
-							btn[y].setBackground(Color.a);
+							if (a[i] == "RED"){
+								btn[y].setBackground(Color.RED);
+							}else if (a[i] == "GREEN"){
+								btn[y].setBackground(Color.GREEN);
+							}else if (a[i] == "BLUE"){
+								btn[y].setBackground(Color.BLUE);
+							}else if (a[i] == "YELLOW"){
+								btn[y].setBackground(Color.YELLOW);
+							}else if (a[i] == "ORANGE"){
+								btn[y].setBackground(Color.ORANGE);
+							}else if (a[i] == "RPINKD"){
+								btn[y].setBackground(Color.PINK);
+							}else if (a[i] == "GREY"){
+								btn[y].setBackground(Color.GRAY);
+							}else if (a[i] == "MAGENTA"){
+								btn[y].setBackground(Color.MAGENTA);
+							}
 							board[y]=a[i];
 							break;
 						}
@@ -98,7 +114,8 @@ public class GameM implements ActionListener {
 	}
 	public void hideField(int x){//start game blank
 		for(int i=0;i<(x*2);i++){
-			/*if(boardQ[i]==0)*/ btn[i].setText("");		
+			/*if(boardQ[i]==0)*/ btn[i].setText("");	
+			btn[i].setBackground(null);		
 		}
 		shown=false;
 	}
@@ -106,6 +123,7 @@ public class GameM implements ActionListener {
 		if(board[i]!="done"){//when a match is correctly chosen, it will no longer switch when pressed
 		if(btn[i].getText()==""){
 			btn[i].setText(board[i]);
+
 		} else {
 			btn[i].setText("");
 			shown=false;
@@ -146,6 +164,8 @@ public class GameM implements ActionListener {
 	}
 	public void actionPerformed(ActionEvent click){//Give buttons things it listens to
 		Object source = click.getSource(); //on click actions
+		
+		
 		if(purgatory){
 			switchSpot(temp2);
 			switchSpot(temp);
@@ -154,7 +174,7 @@ public class GameM implements ActionListener {
 			purgatory=false;
 		}
 		
-		if(source==easy){//sets the type. ex. if easy is clicked it turns blue and hard remains black
+		if(source==easy){//Chooses which gamemode to play color or the other one
 			eh=true;
 			setUpGame(8, eh);
 		} 
@@ -182,6 +202,7 @@ public class GameM implements ActionListener {
 							board[temp]="done";
 							checkWin();
 							temp=(8*2);
+							
 						}
 						
 					}
